@@ -39,11 +39,12 @@
       //   const board = ["", "", "", "", "", ""];
       //
       function add(id) {
-        // console.log(playerX, playerO);
+        console.log(playerX, playerO);
         let cellObj = document.getElementById(id);
-        let p1ScoreObj = document.getElementById("p1-score");
-        let p2ScoreObj = document.getElementById("p2-score");
+        let playerXScoreObj = document.getElementById("playerX-score");
+        let playerOScoreObj = document.getElementById("playerO-score");
         //
+        // if (playerX.cells.includes(id) === true || playerO.cells.includes(id) === true) {
         if (playerX.score === 0 && playerO.score === 0) {
           //
           //    SetUp Player Scores
@@ -54,7 +55,7 @@
           //
           //    Alter HTML
           console.log("Current PLayer Score: ", playerX);
-          p1ScoreObj.innerHTML = playerX.score;
+          playerXScoreObj.innerHTML = playerX.score;
           cellObj.innerHTML = "X";
         } else if (
           playerX.score > playerO.score ||
@@ -66,7 +67,7 @@
           playerO.cells.push(id);
           //
           console.log("Current PLayer Score: ", playerO);
-          p2ScoreObj.innerHTML = playerO.score;
+          playerOScoreObj.innerHTML = playerO.score;
           cellObj.innerHTML = "O";
           //
           //  Check Cells / Score to Trigger Function
@@ -83,13 +84,16 @@
           playerX.cells.push(id);
           //
           console.log("Current PLayer Score: ", playerX);
-          p1ScoreObj.innerHTML = playerX.score;
+          playerXScoreObj.innerHTML = playerX.score;
           cellObj.innerHTML = "X";
           //
           if (playerX.score >= 3) {
             winnerCheck(playerX);
           }
         }
+        // } else {
+        //   alert("Cell is filled.");
+        // }
       }
       //
       function winnerCheck(playerObj) {
@@ -121,6 +125,12 @@
           if (
             storeIdsToNums.includes(storeIdsToNums[i] - 11) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 11)
+          ) {
+            alert("Congrats! You Won Diagonally!");
+          }
+          if (
+            storeIdsToNums.includes(storeIdsToNums[i] - 9) &&
+            storeIdsToNums.includes(storeIdsToNums[i] + 9)
           ) {
             alert("Congrats! You Won Diagonally!");
           }
@@ -169,8 +179,8 @@
     <div class="main-container">
       <div class="row">
         <h1>Tic Tac Toe</h1>
-        <h4>Player X Score: <span id="p1-score">0</span></h4>
-        <h4>Player O Score: <span id="p2-score">0</span></h4>
+        <h4>Player X Score: <span id="playerX-score">0</span></h4>
+        <h4>Player O Score: <span id="playerO-score">0</span></h4>
       </div>
       <div class="row" id="1">
         <span id="1-1" class="cell" onclick="changeCell11()"></span>
