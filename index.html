@@ -120,22 +120,23 @@
             storeIdsToNums.includes(storeIdsToNums[i] - 1) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 1)
           ) {
-            alert("Congrats! You Won Horizontally!");
-            const container = document.getElementsByClassName("main-container");
-            container[0].replaceChildren();
-            //
-            // Add Win Message
-            let msg = document.createElement("p");
-            msg.innerHTML = `Player ${playerObj.target} won horizontally!`;
-            container[0].appendChild(msg);
-            //
-            //  Add Restart Button
-            let btn = document.createElement("button");
-            btn.innerHTML = `Restart`;
-            container[0].appendChild(btn);
-            btn.addEventListener("click", function () {
-              location.reload();
-            });
+            // alert("Congrats! You Won Horizontally!");
+            // const container = document.getElementsByClassName("main-container");
+            // container[0].replaceChildren();
+            // //
+            // // Add Win Message
+            // let msg = document.createElement("p");
+            // msg.innerHTML = `Player ${playerObj.target} won horizontally!`;
+            // container[0].appendChild(msg);
+            // //
+            // //  Add Restart Button
+            // let btn = document.createElement("button");
+            // btn.innerHTML = `Restart`;
+            // container[0].appendChild(btn);
+            // btn.addEventListener("click", function () {
+            //   location.reload();
+            // });
+            showWinnerScreen(playerObj.target, "Horizontally");
           }
           //
           //    Check Columns
@@ -202,6 +203,24 @@
             });
           }
         }
+      }
+      //
+      function showWinnerScreen(element, direction) {
+        alert(`Congrats! You Won ${direction}!`); // Diagonally
+        const container = document.getElementsByClassName("main-container");
+        container[0].replaceChildren();
+        //
+        let msg = document.createElement("p");
+        msg.innerHTML = `Player ${element} won diagonally!`; // playerObj.target
+        container[0].appendChild(msg);
+        //
+        //  Add Restart Button
+        let btn = document.createElement("button");
+        btn.innerHTML = `Restart`;
+        container[0].appendChild(btn);
+        btn.addEventListener("click", function () {
+          location.reload();
+        });
       }
       //
       function changeCell11() {
