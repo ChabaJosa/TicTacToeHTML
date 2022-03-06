@@ -46,20 +46,20 @@
         //
         if (playerX.score === 0 && playerO.score === 0) {
           //
-          //    SetUp Player Scores 
+          //    SetUp Player Scores
           playerX.score += 1;
           playerX.target = "X";
           playerX.lastClick = new Date();
           playerX.cells.push(id);
           //
-          //    Alter HTML 
+          //    Alter HTML
           console.log("Current PLayer Score: ", playerX);
           p1ScoreObj.innerHTML = playerX.score;
           cellObj.innerHTML = "X";
         } else if (
           playerX.score > playerO.score ||
           playerX.lastClick > playerO.lastClick
-        ) { 
+        ) {
           playerO.score += 1;
           playerO.target = "O";
           playerO.lastClick = new Date();
@@ -69,14 +69,14 @@
           p2ScoreObj.innerHTML = playerO.score;
           cellObj.innerHTML = "O";
           //
-          //  Check Cells / Score to Trigger Function 
+          //  Check Cells / Score to Trigger Function
           if (playerO.score >= 3) {
             winnerCheck(playerO);
           }
         } else if (
           playerX.score < playerO.score ||
           playerX.lastClick < playerO.lastClick
-        ) { 
+        ) {
           playerX.score += 1;
           playerX.target = "X";
           playerX.lastClick = new Date();
@@ -106,7 +106,7 @@
             storeIdsToNums.includes(storeIdsToNums[i] - 1) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 1)
           ) {
-            alert("You Won");
+            alert("Congrats! You Won Horizontally!");
           }
           //
           //    Check Columns
@@ -114,7 +114,15 @@
             storeIdsToNums.includes(storeIdsToNums[i] - 10) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 10)
           ) {
-            alert("You Won");
+            alert("Congrats! You Won Vertically!");
+          }
+          //
+          //    Check Diagonals
+          if (
+            storeIdsToNums.includes(storeIdsToNums[i] - 11) &&
+            storeIdsToNums.includes(storeIdsToNums[i] + 11)
+          ) {
+            alert("Congrats! You Won Diagonally!");
           }
         }
       }
