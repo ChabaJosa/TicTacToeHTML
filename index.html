@@ -63,34 +63,42 @@
           playerX.lastClick > playerO.lastClick
         ) {
           //
-          //    SetUp Player Scores
-          //
           playerO.score += 1;
           playerO.target = "O";
           playerO.lastClick = new Date();
           //
-          //    Alter HTML
-          //
           console.log("Current PLayer Score: ", playerO);
           p2ScoreObj.innerHTML = playerO.score;
           cellObj.innerHTML = "O";
+          //
+          //  Check Cells / Score to Trigger Function
+          //
+          if (playerO.score >= 3) {
+            winnerCheck(playerO);
+          }
         } else if (
           playerX.score < playerO.score ||
           playerX.lastClick < playerO.lastClick
         ) {
-          //
-          //    SetUp Player Scores
           //
           playerX.score += 1;
           playerX.target = "X";
           playerX.lastClick = new Date();
           playerX.cells.push(id);
           //
-          //    Alter HTML
-          //
           console.log("Current PLayer Score: ", playerX);
           p1ScoreObj.innerHTML = playerX.score;
           cellObj.innerHTML = "X";
+          //
+          if (playerX.score >= 3) {
+            winnerCheck(playerX);
+          }
+        }
+      }
+      //
+      function winnerCheck(playerObj) {
+        for (const i in playerObj.cells) {
+          console.log(Number(playerObj.cells[i].split("-").join("")));
         }
       }
       //
