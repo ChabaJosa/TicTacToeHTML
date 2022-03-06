@@ -57,43 +57,40 @@
         let playerXScoreObj = document.getElementById("playerX-score");
         let playerOScoreObj = document.getElementById("playerO-score");
         //
-        if (
-          playerX.lastClick > playerO.lastClick ||
-          (playerX.score === 0 && playerO.score === 0)
-        ) {
-          playerO.score += 1;
-          playerO.target = "O";
-          playerO.lastClick = new Date();
-          playerO.cells.push(id);
-          //
-          console.log("Current PLayer Score: ", playerO);
-          playerOScoreObj.innerHTML = playerO.score;
-          cellObj.innerHTML = "O";
-          //
-          //  Check Cells / Score to Trigger Function
-          if (playerO.score >= 3) {
-            winnerCheck(playerO);
+        console.log(cellObj.innerText);
+        if (cellObj.innerText === "") {
+          if (playerX.lastClick > playerO.lastClick) {
+            playerO.score += 1;
+            playerO.target = "O";
+            playerO.lastClick = new Date();
+            playerO.cells.push(id);
+            //
+            playerOScoreObj.innerHTML = playerO.score;
+            cellObj.innerHTML = "O";
+            //
+            //  Check Cells / Score to Trigger Function
+            if (playerO.score >= 3) {
+              winnerCheck(playerO);
+            }
+          } else if (
+            playerX.lastClick < playerO.lastClick ||
+            (playerX.score === 0 && playerO.score === 0)
+          ) {
+            playerX.score += 1;
+            playerX.target = "X";
+            playerX.lastClick = new Date();
+            playerX.cells.push(id);
+            //
+            playerXScoreObj.innerHTML = playerX.score;
+            cellObj.innerHTML = "X";
+            //
+            if (playerX.score >= 3) {
+              winnerCheck(playerX);
+            }
           }
-        } else if (
-          playerX.lastClick < playerO.lastClick ||
-          (playerX.score === 0 && playerO.score === 0)
-        ) {
-          playerX.score += 1;
-          playerX.target = "X";
-          playerX.lastClick = new Date();
-          playerX.cells.push(id);
-          //
-          console.log("Current PLayer Score: ", playerX);
-          playerXScoreObj.innerHTML = playerX.score;
-          cellObj.innerHTML = "X";
-          //
-          if (playerX.score >= 3) {
-            winnerCheck(playerX);
-          }
+        } else {
+          alert("Cell is filled.");
         }
-        // } else {
-        //   alert("Cell is filled.");
-        // }
       }
       //
       function winnerCheck(playerObj) {
