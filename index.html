@@ -25,6 +25,12 @@
         border: 1px solid black;
         width: 100%;
         text-align: center;
+        font-size: 32px;
+        padding-top: 1rem;
+        /* height: 150px; */
+      }
+      .cell:hover {
+        background-color: blanchedalmond;
         /* height: 150px; */
       }
       .main-container {
@@ -40,36 +46,20 @@
         flex-direction: row;
         width: 100%;
         flex: 1;
-        /* border: 1px solid red;`   */
       }
     </style>
     <script>
       const playerX = { target: "", score: 0, lastClick: "", cells: [] };
       const playerO = { target: "", score: 0, lastClick: "", cells: [] };
-      //   const board = ["", "", "", "", "", ""];
       //
       function add(id) {
-        console.log(playerX, playerO);
         let cellObj = document.getElementById(id);
         let playerXScoreObj = document.getElementById("playerX-score");
         let playerOScoreObj = document.getElementById("playerO-score");
         //
-        // if (playerX.cells.includes(id) === true || playerO.cells.includes(id) === true) {
-        if (playerX.score === 0 && playerO.score === 0) {
-          //
-          //    SetUp Player Scores
-          playerX.score += 1;
-          playerX.target = "X";
-          playerX.lastClick = new Date();
-          playerX.cells.push(id);
-          //
-          //    Alter HTML
-          console.log("Current PLayer Score: ", playerX);
-          playerXScoreObj.innerHTML = playerX.score;
-          cellObj.innerHTML = "X";
-        } else if (
-          playerX.score > playerO.score ||
-          playerX.lastClick > playerO.lastClick
+        if (
+          playerX.lastClick > playerO.lastClick ||
+          (playerX.score === 0 && playerO.score === 0)
         ) {
           playerO.score += 1;
           playerO.target = "O";
@@ -85,8 +75,8 @@
             winnerCheck(playerO);
           }
         } else if (
-          playerX.score < playerO.score ||
-          playerX.lastClick < playerO.lastClick
+          playerX.lastClick < playerO.lastClick ||
+          (playerX.score === 0 && playerO.score === 0)
         ) {
           playerX.score += 1;
           playerX.target = "X";
@@ -109,98 +99,35 @@
       function winnerCheck(playerObj) {
         let storeIdsToNums = [];
         for (const i in playerObj.cells) {
-          console.log(Number(playerObj.cells[i].split("-").join("")));
           storeIdsToNums.push(Number(playerObj.cells[i].split("-").join("")));
         }
-        console.log("Player has --> ", storeIdsToNums);
         for (const i in storeIdsToNums) {
-          //
           //  Check Rows
           if (
             storeIdsToNums.includes(storeIdsToNums[i] - 1) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 1)
           ) {
-            // alert("Congrats! You Won Horizontally!");
-            // const container = document.getElementsByClassName("main-container");
-            // container[0].replaceChildren();
-            // //
-            // // Add Win Message
-            // let msg = document.createElement("p");
-            // msg.innerHTML = `Player ${playerObj.target} won horizontally!`;
-            // container[0].appendChild(msg);
-            // //
-            // //  Add Restart Button
-            // let btn = document.createElement("button");
-            // btn.innerHTML = `Restart`;
-            // container[0].appendChild(btn);
-            // btn.addEventListener("click", function () {
-            //   location.reload();
-            // });
-            showWinnerScreen(playerObj.target, "Horizontally");
+            showWinnerScreen(playerObj.target, "horizontally");
           }
-          //
           //    Check Columns
           if (
             storeIdsToNums.includes(storeIdsToNums[i] - 10) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 10)
           ) {
-            alert("Congrats! You Won Vertically!");
-            const container = document.getElementsByClassName("main-container");
-            container[0].replaceChildren();
-            //
-            let msg = document.createElement("p");
-            msg.innerHTML = `Player ${playerObj.target} won vertically!`;
-            container[0].appendChild(msg);
-            //
-            //  Add Restart Button
-            let btn = document.createElement("button");
-            btn.innerHTML = `Restart`;
-            container[0].appendChild(btn);
-            btn.addEventListener("click", function () {
-              location.reload();
-            });
+            showWinnerScreen(playerObj.target, "vertically");
           }
-          //
           //    Check Diagonals
           if (
             storeIdsToNums.includes(storeIdsToNums[i] - 11) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 11)
           ) {
-            alert("Congrats! You Won Diagonally!");
-            const container = document.getElementsByClassName("main-container");
-            container[0].replaceChildren();
-            //
-            //  Add Win Message
-            let msg = document.createElement("p");
-            msg.innerHTML = `Player ${playerObj.target} won diagonally!`;
-            container[0].appendChild(msg);
-            //
-            let btn = document.createElement("button");
-            btn.innerHTML = `Restart`;
-            container[0].appendChild(btn);
-            btn.addEventListener("click", function () {
-              location.reload();
-            });
+            showWinnerScreen(playerObj.target, "diagonally");
           }
           if (
             storeIdsToNums.includes(storeIdsToNums[i] - 9) &&
             storeIdsToNums.includes(storeIdsToNums[i] + 9)
           ) {
-            alert("Congrats! You Won Diagonally!");
-            const container = document.getElementsByClassName("main-container");
-            container[0].replaceChildren();
-            //
-            let msg = document.createElement("p");
-            msg.innerHTML = `Player ${playerObj.target} won diagonally!`;
-            container[0].appendChild(msg);
-            //
-            //  Add Restart Button
-            let btn = document.createElement("button");
-            btn.innerHTML = `Restart`;
-            container[0].appendChild(btn);
-            btn.addEventListener("click", function () {
-              location.reload();
-            });
+            showWinnerScreen(playerObj.target, "diagonally");
           }
         }
       }
@@ -225,39 +152,30 @@
       //
       function changeCell11() {
         add("1-1");
-        // console.log("1-1", obj.style, obj.innerHTML);
       }
       function changeCell12() {
         add("1-2");
-        // console.log("1-2", obj.style, obj.innerHTML);
       }
       function changeCell13() {
         add("1-3");
-        // console.log("1-3", obj.style, obj.innerHTML);
       }
       function changeCell21() {
         add("2-1");
-        // console.log("2-1", obj.style, obj.innerHTML);
       }
       function changeCell22() {
         add("2-2");
-        // console.log("2-2", obj.style, obj.innerHTML);
       }
       function changeCell23() {
         add("2-3");
-        // console.log("2-3", obj.style, obj.innerHTML);
       }
       function changeCell31() {
         add("3-1");
-        // console.log("3-1", obj.style, obj.innerHTML);
       }
       function changeCell32() {
         add("3-2");
-        // console.log("3-2", obj.style, obj.innerHTML);
       }
       function changeCell33() {
         add("3-3");
-        // console.log("3-3", obj.style, obj.innerHTML);
       }
     </script>
   </head>
@@ -265,8 +183,8 @@
     <div class="main-container">
       <div class="row">
         <h1>Tic Tac Toe</h1>
-        <h4>Player X Score: <span id="playerX-score">0</span></h4>
-        <h4>Player O Score: <span id="playerO-score">0</span></h4>
+        <h4>Player X Moves: <span id="playerX-score">0</span></h4>
+        <h4>Player O Moves: <span id="playerO-score">0</span></h4>
       </div>
       <div class="row" id="1">
         <span id="1-1" class="cell" onclick="changeCell11()"></span>
