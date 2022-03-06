@@ -34,84 +34,100 @@
       }
     </style>
     <script>
-      const player1 = { target: "", score: 0, lastClick: "" };
-      const player2 = { target: "", score: 0, lastClick: "" };
-      const board = ["", "", "", "", "", ""];
+      const playerX = { target: "", score: 0, lastClick: "", cells: [] };
+      const playerO = { target: "", score: 0, lastClick: "", cells: [] };
+      //   const board = ["", "", "", "", "", ""];
       //
-      function add(cellObj) {
-        console.log(player1, player2);
-        if (player1.score === 0 && player2.score === 0) {
-          player1.score += 1;
-          player1.target = "X";
-          player1.lastClick = new Date();
-          console.log("Current PLayer Score: ", player1);
-          document.getElementById("p1-score").innerHTML = player1.score;
+      function add(id) {
+        // console.log(playerX, playerO);
+        let cellObj = document.getElementById(id);
+        let p1ScoreObj = document.getElementById("p1-score");
+        let p2ScoreObj = document.getElementById("p2-score");
+        //
+        if (playerX.score === 0 && playerO.score === 0) {
+          //
+          //    SetUp Player Scores
+          //
+          playerX.score += 1;
+          playerX.target = "X";
+          playerX.lastClick = new Date();
+          playerX.cells.push(id);
+          //
+          //    Alter HTML
+          //
+          console.log("Current PLayer Score: ", playerX);
+          p1ScoreObj.innerHTML = playerX.score;
           cellObj.innerHTML = "X";
         } else if (
-          player1.score > player2.score ||
-          player1.lastClick > player2.lastClick
+          playerX.score > playerO.score ||
+          playerX.lastClick > playerO.lastClick
         ) {
-          player2.score += 1;
-          player2.target = "O";
-          player2.lastClick = new Date();
-          console.log("Current PLayer Score: ", player2);
-          document.getElementById("p2-score").innerHTML = player2.score;
+          //
+          //    SetUp Player Scores
+          //
+          playerO.score += 1;
+          playerO.target = "O";
+          playerO.lastClick = new Date();
+          //
+          //    Alter HTML
+          //
+          console.log("Current PLayer Score: ", playerO);
+          p2ScoreObj.innerHTML = playerO.score;
           cellObj.innerHTML = "O";
         } else if (
-          player1.score < player2.score ||
-          player1.lastClick < player2.lastClick
+          playerX.score < playerO.score ||
+          playerX.lastClick < playerO.lastClick
         ) {
-          player1.score += 1;
-          player1.target = "X";
-          console.log("Current PLayer Score: ", player1);
-          document.getElementById("p1-score").innerHTML = player1.score;
+          //
+          //    SetUp Player Scores
+          //
+          playerX.score += 1;
+          playerX.target = "X";
+          playerX.lastClick = new Date();
+          playerX.cells.push(id);
+          //
+          //    Alter HTML
+          //
+          console.log("Current PLayer Score: ", playerX);
+          p1ScoreObj.innerHTML = playerX.score;
           cellObj.innerHTML = "X";
         }
       }
       //
       function changeCell11() {
-        let obj = document.getElementById("1-1");
-        add(obj);
+        add("1-1");
         // console.log("1-1", obj.style, obj.innerHTML);
       }
       function changeCell12() {
-        let obj = document.getElementById("1-2");
-        add(obj);
+        add("1-2");
         // console.log("1-2", obj.style, obj.innerHTML);
       }
       function changeCell13() {
-        let obj = document.getElementById("1-3");
-        add(obj);
+        add("1-3");
         // console.log("1-3", obj.style, obj.innerHTML);
       }
       function changeCell21() {
-        let obj = document.getElementById("2-1");
-        add(obj);
+        add("2-1");
         // console.log("2-1", obj.style, obj.innerHTML);
       }
       function changeCell22() {
-        let obj = document.getElementById("2-2");
-        add(obj);
+        add("2-2");
         // console.log("2-2", obj.style, obj.innerHTML);
       }
       function changeCell23() {
-        let obj = document.getElementById("2-3");
-        add(obj);
+        add("2-3");
         // console.log("2-3", obj.style, obj.innerHTML);
       }
       function changeCell31() {
-        let obj = document.getElementById("3-1");
-        add(obj);
+        add("3-1");
         // console.log("3-1", obj.style, obj.innerHTML);
       }
       function changeCell32() {
-        let obj = document.getElementById("3-2");
-        add(obj);
+        add("3-2");
         // console.log("3-2", obj.style, obj.innerHTML);
       }
       function changeCell33() {
-        let obj = document.getElementById("3-3");
-        add(obj);
+        add("3-3");
         // console.log("3-3", obj.style, obj.innerHTML);
       }
     </script>
@@ -120,8 +136,8 @@
     <div class="main-container">
       <div class="row">
         <h1>Tic Tac Toe</h1>
-        <h4>Player 1 Score: <span id="p1-score">0</span></h4>
-        <h4>Player 2 Score: <span id="p2-score">0</span></h4>
+        <h4>Player X Score: <span id="p1-score">0</span></h4>
+        <h4>Player O Score: <span id="p2-score">0</span></h4>
       </div>
       <div class="row" id="1">
         <span id="1-1" class="cell" onclick="changeCell11()"></span>
